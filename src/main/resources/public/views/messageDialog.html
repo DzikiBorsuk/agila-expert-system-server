@@ -1,0 +1,11 @@
+<div class="modal-header">
+    <h4 class="modal-title" ng-bind-html="title"></h4>
+</div>
+
+<div class="modal-body" bind-html-compile="message">
+</div>
+
+<div class="modal-footer">
+    <button class="btn" ng-class="buttonClassClose" ng-click="modalDismiss()">Close</button>
+    <button class="btn" ng-class="buttonClassConfirmation" ng-click="confirm()">{{confirmButtonText}}</button>
+</div>

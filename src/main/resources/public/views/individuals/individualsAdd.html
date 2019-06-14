@@ -1,0 +1,134 @@
+<form ng-submit="submit()" name="individualForm" novalidate>
+    <div>
+        <h3><span class="fa fa-plus-square"></span> Add new car</h3>
+        <div class="row">
+            <div class="col">
+                <div class="row border rounded-top New_individual p-3 individuals">
+                    <div class="form-group w-100">
+                        <label for="Name_individual"><span class="fa fa-car"></span> Car Name</label>
+                        <input type="text" class="form-control" disable-spaces id="Name_individual" placeholder="Name"
+                               ng-model="inputNewIndividual" name="inputNewIndividual" ng-required="true"
+                               ng-class="{'is-invalid' : individualForm.inputNewIndividual.$invalid && individualForm.$submitted, 'is-valid' : individualForm.inputNewIndividual.$valid && individualForm.$submitted}">
+                        <div class="invalid-feedback"> Please enter the name!</div>
+                    </div>
+
+                    <div class="alert alert-secondary add-car-info">
+                        <label><span class="fa fa-info-circle"></span> In order to design a new car, please follow the
+                            steps below:</label>
+                        <ol>
+                            <li>
+                                Fill the car name above.
+                            </li>
+                            <li>
+                                In the <i>Object Properties</i> column (in the middle), select one pre-defined value per
+                                item.
+                            </li>
+                            <li>
+                                In the <i>Data Properties</i> column (the last one), add custom values based on the data
+                                properties data type.
+                            </li>
+                            <li>
+                                Click on the <i>Add</i> button below.
+                            </li>
+                        </ol>
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-block btn-sm d-inline-block">Add</button>
+
+
+                    <button type="button" class="btn btn-danger btn-block btn-sm d-inline-block" ng-click="clearAll()">
+                        Clear all
+                    </button>
+                </div>
+            </div>
+            <div class="col border p-2 " style="max-height: 85vh; overflow-y: auto;">
+                <p><span class="fa fa-list"></span> Object Properties</p>
+                <div class="p-2 border" ng-repeat="objectProperty in objectProperties"
+                     ng-include="'objectProperties_template'"></div>
+            </div>
+            <div class="col border  p-2" style="max-height: 85vh; overflow-y: auto;">
+                <p><span class="fa fa-calculator"></span> Data Properties</p>
+                <div class="p-2 border" ng-repeat="dataProperty in dataProperties"
+                     ng-include="'dataProperties_template'"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/ng-template" id="objectProperties_template">
+        <div>{{ objectProperty.name }}</div>
+        <small class="form-text text-muted">{{objectProperty.description}}</small>
+        <div class="p-2 border" ng-if="objectProperty.subProperties">
+            <div ng-repeat="objectProperty in objectProperty.subProperties" ng-include="'objectProperties_template'">
+            </div>
+        </div>
+        <div ng-if="!objectProperty.subProperties">
+            <div class="form-group">
+                <select class="form-control" name="{{objectProperty.name}}"
+                        ng-model="inputObjectProperty[objectProperty.name]"
+                        ng-init="inputObjectProperty[objectProperty.name] = inputObjectProperty[objectProperty.name] || objectProperty.classes[0]"
+                        ng-options="option for option in objectProperty.classes" ng-required="true"
+                        ng-class="{'is-invalid' : individualForm[objectProperty.name].$invalid && individualForm.$submitted, 'is-valid' : individualForm[objectProperty.name].$valid && individualForm.$submitted}">
+                </select>
+                <div class="invalid-feedback"> Please select one option!</div>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="dataProperties_template">
+        <div>
+            {{ dataProperty.name }}
+            <small class="pull-right alert alert-primary data-type-info ng-binding">
+                {{dataProperty.dataType}}
+            </small>
+        </div>
+
+        <small class="form-text text-muted">{{dataProperty.description}}</small>
+        <div class="p-2 border" ng-if="dataProperty.subProperties">
+            <div ng-repeat="dataProperty in dataProperty.subProperties" ng-include="'dataProperties_template'">
+            </div>
+
+        </div>
+        <div ng-if="!dataProperty.subProperties">
+            <div ng-if="dataProperty.dataType=='XSD_BOOLEAN'">
+                <div class="form-group">
+                    <div class="radio">
+                        <label class="radio-inline mx-3"><input type="radio" name="{{dataProperty.name}}"
+                                                                ng-model="inputDataProperty[dataProperty.name]" value="true">
+                            Yes</label>
+                        <label class="radio-inline float-right mx-3"><input type="radio" name="{{dataProperty.name}}"
+                                                                            ng-model="inputDataProperty[dataProperty.name]" value="false">
+                            No</label>
+                        <div class="invalid-feedback"> Please select one option!</div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="dataProperty.dataType!=='XSD_BOOLEAN'">
+                <div ng-if="dataProperty.dataType=='XSD_INTEGER'">
+                <div class="form-group">
+                    <input  number-only="integer" ng-pattern="/^(0|[\-\+]?[1-9][0-9]*)$/"  class="form-control" type="text" ng-model="inputDataProperty[dataProperty.name]"
+                           name="{{dataProperty.name}}"
+                           ng-required="true"
+                           ng-class="{'is-invalid' : individualForm[dataProperty.name].$invalid && individualForm.$submitted, 'is-valid' : individualForm[dataProperty.name].$valid && individualForm.$submitted}">
+                    <div class="invalid-feedback"> Please enter value!</div>
+                </div>
+            </div>
+                <div ng-if="dataProperty.dataType=='XSD_FLOAT'">
+                    <div class="form-group">
+                        <input number-only="float" ng-pattern="/^[+-]?(([0](\.[0-9]+)?)|([1-9]+[0-9]*(\.[0-9]+)?))$/"  class="form-control" type="text" ng-model="inputDataProperty[dataProperty.name]"
+                               name="{{dataProperty.name}}"
+                               ng-required="true"
+                               ng-class="{'is-invalid' : individualForm[dataProperty.name].$invalid && individualForm.$submitted, 'is-valid' : individualForm[dataProperty.name].$valid && individualForm.$submitted}">
+                        <div class="invalid-feedback"> Please enter value!</div>
+                </div>
+            </div>
+                <div ng-if="dataProperty.dataType!=='XSD_INTEGER'&& dataProperty.dataType!=='XSD_FLOAT'">
+                    <input class="form-control" type="text" ng-model="inputDataProperty[dataProperty.name]"
+                           name="{{dataProperty.name}}"
+                           ng-required="true"
+                           ng-class="{'is-invalid' : individualForm[dataProperty.name].$invalid && individualForm.$submitted, 'is-valid' : individualForm[dataProperty.name].$valid && individualForm.$submitted}">
+                    <div class="invalid-feedback"> Please enter value!</div>
+                </div>
+        </div>
+        </div>
+    </script>
+</form>

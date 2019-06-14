@@ -1,0 +1,54 @@
+<div>
+    <h3><span class="fa fa-cogs"></span> Settings </h3>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <ul id="settings-tab" class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="user" aria-selected="true"><label><span class="fa fa-user-circle"></span> User Account</label></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="ontology-tab" data-toggle="tab" href="#ontology" role="tab" aria-controls="ontology" aria-selected="false"><label><span class="fa fa-share-alt"></span> Ontology</label></a>
+                </li>
+            </ul>
+            <div class="tab-content p-2 border border-top-0 rounded-2 background-white">
+                <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <label>{{user.firstName}} {{user.lastName}}</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <label>{{user.email}}</label>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="ontology" role="tabpanel" aria-labelledby="ontology-tab">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-info" role="alert">
+                                Click on the button below to save the Ontology into an OWL file and open it with Protegé.
+                            </div>
+                            <button type="button" class="btn btn-primary" ng-click="download()">Download Ontology</button>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-md-12">
+                            <div class="alert alert-warning" role="alert">
+                                If you would like to override the Ontology, existing constraints might become inconsistent and changes done to the current Ontology might get lost.
+                            </div>
+
+                            <div>
+                                Upload and override ontology...
+                                <input type="file" file-model="ontologyFile" name="ontologyFile">
+                                &nbsp;
+                                <span class='label label-info' id="upload-file-info"></span>
+
+                                <input ng-show="ontologyFile" class="btn btn-warning" type="submit" value="Upload" ng-click="upload()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

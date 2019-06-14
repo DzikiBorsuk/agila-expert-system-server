@@ -1,0 +1,134 @@
+<div class="px-1">
+    <h3><span class="fa fa-car"></span> List of cars</h3>
+    <button ng-click="loadIndividuals()" class="btn btn-primary"><span
+            class="fa fa-refresh"></span><span
+            class="mx-2"></span><span>Refresh</span>
+    </button>
+    <button ui-sref="individualsAdd" class="btn btn-success"><span class="fa fa-plus"></span><span
+            class="mx-2"></span><span>Add new</span>
+    </button>
+    <div class="d-flex justify-content-start">
+        <div class="py-2 mr-4">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Show</label>
+                </div>
+                <select ng-init="option.maxOnPage='5'" class="form-control"
+                        ng-model="option.maxOnPage">
+                    <option selected>5</option>
+                    <option>15</option>
+                    <option>50</option>
+                    <option>100</option>
+                </select>
+                <div class="input-group-append">
+                    <label class="input-group-text">individuals</label>
+                </div>
+            </div>
+        </div>
+        <div class="py-2">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Sort by</label>
+                </div>
+                <select class="form-control" ng-init="option.sortBy='Name ascending'"
+                        ng-model="option.sortBy" ng-change="individualsListSort()">
+                    <option selected>Name ascending</option>
+                    <option>Name descending</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="ml-auto py-2">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search"
+                       ng-model="option.search">
+                <div class="input-group-append">
+                    <button class="btn btn-primary fa fa-search"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="border border-dark rounded constraint-list-overflow mb-2">
+        <div style="min-width: 750px;">
+            <div class="row px-4">
+                <div class="col-1 py-2 border-right text-center">
+                    #
+                </div>
+                <div class="col py-2 border-right text-center">
+                    Name
+                </div>
+                <div class="col py-2 text-center">
+                    Action
+                </div>
+
+
+            </div>
+            <div class="row px-4 pb-1">
+                <div id="individual-list-accordion" class="col py-2 border-right text-center">
+                    <div ng-repeat="individual in individualsToShow = (individualsList | filter:searchFilter)"
+                         ng-if="$index >= option.startIndex && $index < option.endIndex"
+                         ng-include="'individuals_list_template'">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <ul uib-pagination total-items="individualsToShow.length" ng-model="option.currentPage" max-size="option.maxSize"
+        items-per-page="option.maxElements" ng-change="setToShow()" ng-hide="option.maxElements >= individualsToShow.length"
+        class="pagination justify-content-center"
+        boundary-link-numbers="true"></ul>
+
+</div>
+
+<script type="text/ng-template" id="individuals_list_template">
+    <div class="card border rounded-0">
+        <div class="card-header btn btn-outline-dark border-0 rounded-0" data-toggle="collapse"
+             data-target="#individual-accordion-{{$index}}"
+             ng-mouseenter="option.mouseHover[$index]=true" ng-mouseleave="option.mouseHover[$index]=false">
+            <div class="row" style="min-height: 30px;">
+                <div class="col-1">
+                    {{$index+1}}
+                </div>
+                <div class="col">
+                    {{individual.name}}
+                </div>
+                <div class="col">
+                    <button ng-show="option.mouseHover[$index]"
+                            class="btn btn-primary fa fa-wrench mr-3"></button>
+                    <button ng-show="option.mouseHover[$index]"
+                            data-target="#individual-accordion-delete-{{$index}}"
+                            ng-click="deleteIndividualHoverClick($index); $event.stopPropagation();"
+                            class="btn btn-danger fa fa-trash mr-3"></button>
+
+                </div>
+            </div>
+        </div>
+        <div id="individual-accordion-delete-{{$index}}" class="px-3 py-1 collapse"
+             data-parent="#individual-list-accordion">
+            <button class="btn btn-danger btn-block" ng-click="deleteIndividual(individual.name)">
+                DELETE
+            </button>
+        </div>
+        <div id="individual-accordion-{{$index}}" class="collapse" data-parent="#individual-list-accordion">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div ng-repeat="objectProperty in individual.objectProperties">
+                            {{objectProperty.property.name + ":" + objectProperty.value}}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div ng-repeat="dataProperty in individual.dataProperties">
+                            {{dataProperty.property.name + ":" + dataProperty.value}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</script>

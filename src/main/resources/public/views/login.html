@@ -1,0 +1,61 @@
+<form role="form" ng-submit="loginSubmit()">
+    <div class="login bg-light border border-secondary d-print-none" id="email">
+        <div class="logo">
+            <h1><span><img src="../images/TUKL_LOGO_RGB.svg"></span><span
+                    class="float-right signup-header d-none d-sm-block">Login</span>
+            </h1>
+        </div>
+        <div id="email-alert" class="d-none">
+            <span>Enter a valid email!</span>
+
+        </div>
+        <div id="login-email-placeholder" class="placeholder-custom transition-600ms">
+            <label for="login-email" class="form-control border-0 label-custom">E-mail</label>
+        </div>
+        <input id="login-email" type="text"
+               class="form-control bg-light rounded-0 border-top-0 border-right-0 border-left-0 form-custom movable"
+               aria-label="E-mail" ng-model="credentials.username">
+        <div>
+            <button id="next-email" type="button"
+                    class="btn btn-next btn-block btn-primary rounded-0">Next
+            </button>
+        </div>
+        <div class="text">
+            <p><h6>Don't have an account? <a ui-sref="register"> Create one!</a></h6></p>
+        </div>
+    </div>
+    <div class="login bg-light border border-secondary d-none" id="password">
+        <div class="logo">
+            <h1><span><img src="../images/TUKL_LOGO_RGB.svg"></span><span
+                    class="float-right signup-header d-none d-sm-block">Login</span>
+            </h1>
+        </div>
+        <div id="back" class="btn btn-light border-0">
+            <span class="fa fa-arrow-left"></span>
+            <span id="email-back"></span>
+
+        </div>
+        <div id="login-password-placeholder" class="placeholder-custom transition-600ms">
+            <label for="login-password" class="form-control border-0 label-custom">Password</label>
+        </div>
+        <input id="login-password" type="password"
+               class="form-control bg-light rounded-0 border-top-0 border-right-0 border-left-0 form-custom movable"
+               aria-label="Password" ng-model="credentials.password">
+
+        <div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="remember-me">
+                <label class="form-check-label" for="remember-me">Remember me</label>
+            </div>
+
+            <input id="next-password" type="submit"
+                    class="btn btn-next btn-block btn-primary rounded-0" value="Login" disabled>
+
+        </div>
+        <div class="text">
+            <p><h6>Forgot your <a href="register.html"> password?</a></h6></p>
+        </div>
+
+    </div>
+</form>

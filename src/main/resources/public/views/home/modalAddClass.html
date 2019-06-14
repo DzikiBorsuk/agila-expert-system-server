@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h4 class="modal-title">Add New Class</h4>
+</div>
+<form class="needs-validation" name="addClassForm" autocomplete="off" role="form" ng-submit="addNewClass()" novalidate>
+    <div class="modal-body">
+        <div class="form-check">
+            <input type="radio" id="child" name="option" class="form-check-input class-name-radio" value="child"
+                   ng-model="model.option" ng-checked="true"/><label for="child">Add as child of {{referenceClass}}</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" id="sibling" name="option" class="form-check-input class-name-radio" value="sibling"
+                   ng-model="model.option" ng-disabled="isThing" /><label for="sibling">Add as sibling of {{referenceClass}}</label>
+        </div>
+        <div class="form-group">
+            <label for="add-class-name">Class name</label>
+            <input class="form-control" disable-spaces name="name" id="add-class-name" placeholder="Name"
+                   ng-model="model.name"
+                   ng-required="true"
+                   ng-class="{'is-invalid' : addClassForm.name.$invalid && addClassForm.$submitted, 'is-valid' : addClassForm.name.$valid && addClassForm.$submitted}">
+            <div class="invalid-feedback">
+                Please enter a name.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="add-class-description">Class description</label>
+            <textarea class="form-control" name="description" id="add-class-description" rows="4"
+                      style="resize: none" ng-model="model.description" ng-required="true"
+                      ng-class="{'is-invalid' : addClassForm.name.$invalid && addClassForm.$submitted, 'is-valid' : addClassForm.name.$valid && addClassForm.$submitted}"></textarea>
+            <div class="invalid-feedback">
+                Please enter some description.
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" ng-click="modalDismiss()">Close</button>
+        <button type="submit" class="btn btn-success">Add
+        </button>
+    </div>
+</form>

@@ -1,0 +1,68 @@
+<form role="form" ng-submit="registerSubmit()">
+    <div class="register bg-light border border-secondary">
+        <div class="logo">
+            <h1><span><img src="../images/TUKL_LOGO_RGB.svg"></span><span
+                    class="float-right signup-header d-none d-sm-block">Sign up</span>
+            </h1>
+        </div>
+        <div class="row h-100">
+            <div class="col-6">
+                <div id="register-first-name-placeholder" class="placeholder-custom transition-600ms">
+                    <label for="register-first-name" class="form-control border-0 label-custom">First Name</label>
+                </div>
+                <input id="register-first-name" type="text"
+                       class="form-control bg-light rounded-0 border-top-0 border-right-0 border-left-0 form-custom movable"
+                       aria-label="FirstName" ng-model="credentials.firstname">
+            </div>
+            <div class="col-6">
+                <div id="register-last-name-placeholder" class="placeholder-custom transition-600ms">
+                    <label for="register-last-name" class="form-control border-0 label-custom">Last Name</label>
+                </div>
+                <input id="register-last-name" type="text"
+                       class="form-control bg-light rounded-0 border-top-0 border-right-0 border-left-0 form-custom movable"
+                       aria-label="LastName" ng-model="credentials.lastname">
+            </div>
+        </div>
+        <div id="register-email-placeholder" class="placeholder-custom transition-600ms">
+            <label for="register-email" class="form-control border-0 label-custom">E-mail</label>
+        </div>
+        <input id="register-email" type="text"
+               class="form-control bg-light rounded-0 border-top-0 border-right-0 border-left-0 form-custom movable"
+               aria-label="E-mail" ng-model="credentials.email">
+
+        <div id="register-password-placeholder" class="placeholder-custom transition-600ms">
+            <label for="register-password" class="form-control border-0 label-custom">Password</label>
+        </div>
+        <input id="register-password" type="password"
+               class="form-control bg-light rounded-0 border-top-0 border-right-0 border-left-0 form-custom movable"
+               aria-label="Password" ng-model="credentials.password">
+
+        <div id="register-confirmpassword-placeholder" class="placeholder-custom transition-600ms">
+            <label for="register-confirmpassword" class="form-control border-0 label-custom">Confirm
+                password</label>
+        </div>
+        <input id="register-confirmpassword" type="password"
+               class="form-control bg-light rounded-0 border-top-0 border-right-0 border-left-0 form-custom movable"
+               aria-label="Confirm password">
+
+        <div class="row password-meter">
+            <div class="col-6">
+                <div class="d-flex align-items-center progress no-background rounded-0" style="height: 40px">
+                    <div id="password-meter-bar" class="progress-bar transition-600ms" style="width:0"></div>
+                </div>
+            </div>
+            <div class="col-6 d-flex align-items-center">
+                    <span id="password-problem" data-toggle="tooltip" title=""
+                          data-html="true" class="fa fa-exclamation-triangle fa-lg text-danger d-none"></span>
+            </div>
+        </div>
+        <div>
+            <input id="submit-btn" type="submit" class="btn btn-block btn-primary rounded-0" value="Sign up" disabled>
+        </div>
+        <div class="text">
+            <p><h6>Already have an account? <a ui-sref="login"> Log in!</a></h6>
+        </div>
+
+
+    </div>
+</form>

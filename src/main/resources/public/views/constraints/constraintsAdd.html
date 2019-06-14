@@ -1,0 +1,120 @@
+<h3><span class="fa fa-plus-square"></span> Add new constraint</h3>
+<div class="px-2">
+    <form class="mt-3" name="constraintForm" role="form" autocomplete="off" ng-submit="constraintSubmit()" novalidate>
+        <div class="row">
+            <div class="col-md-8 border rounded-left formula-row">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="constraint-name">Constraint name</label>
+                        <input type="text" class="form-control" id="constraint-name" placeholder="Name"
+                               ng-model="constraint.name" name="name"
+                               ng-class="{'is-invalid' : constraintForm.name.$invalid && constraintForm.$submitted, 'is-valid' : constraintForm.name.$valid && constraintForm.$submitted}"
+                               required>
+                        <div class="invalid-feedback">
+                            Please enter a name.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="constraint-output">Constraint output</label>
+                        <input type="text" class="form-control" id="constraint-output" disable-spaces placeholder="Output"
+                               ng-model="constraint.output" name="output"
+                               ng-class="{'is-invalid' : constraintForm.output.$invalid && constraintForm.$submitted, 'is-valid' : constraintForm.output.$valid && constraintForm.$submitted}"
+                               required>
+                        <div class="invalid-feedback">
+                            Please define correct output.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="constraint-output">Output data type</label>
+                        <select class="form-control" id="constraint-dataType" placeholder="Data type"
+                                ng-model="constraint.dataType" name="dataType"
+                                ng-options="dataType for dataType in dataTypes"
+                                ng-class="{'is-invalid' : constraintForm.dataType.$invalid && constraintForm.$submitted, 'is-valid' : constraintForm.dataType.$valid && constraintForm.$submitted}"
+                                required>
+                            <option value="" selected disabled>Choose data type</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select the output data type.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="constraint-description">Description</label>
+                    <textarea id="constraint-description" class="form-control" placeholder="Some description..."
+                              style="resize: none;" ng-model="constraint.description" name="description"
+                              ng-class="{'is-invalid' : constraintForm.description.$invalid && constraintForm.$submitted, 'is-valid' : constraintForm.description.$valid && constraintForm.$submitted}"
+                              required></textarea>
+                    <div class="invalid-feedback">
+                        Please enter good description.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="constraint-formula">TeX formula</label>
+                    <textarea id="constraint-formula" rows="4" class="form-control form-control-lg"
+                              placeholder="example: {3600 \over 1000} \times \sqrt[3]{2 \times hasPower \over hasFrontArea \times hasDragCoefficient \times 1.25}"
+                              style="resize: none;" name="formula" ng-model="constraint.formula"
+                              ng-class="{'is-invalid' : constraintForm.formula.$invalid && constraintForm.$submitted, 'is-valid' : constraintForm.fromula.$valid && constraintForm.$submitted}"
+                              required></textarea>
+                    <div class="invalid-feedback">
+                        Formula problem
+                    </div>
+                    <div class="mt-1">
+                        <button ng-click="mathBtnClick($event)" type="button" id="addition-btn"
+                                class="btn btn-secondary mr-1">+
+                        </button>
+                        <button ng-click="mathBtnClick($event)" type="button" id="subtraction-btn"
+                                class="btn btn-secondary mr-1">&minus;
+                        </button>
+                        <button ng-click="mathBtnClick($event)" type="button" id="multiplication-btn"
+                                class="btn btn-secondary mr-1">
+                            &lowast;
+                        </button>
+                        <button ng-click="mathBtnClick($event)" type="button" id="division-btn"
+                                class="btn btn-secondary mr-1">&#8725;
+                        </button>
+                        <button ng-click="mathBtnClick($event)" type="button" id="root-btn"
+                                class="btn btn-secondary mr-1">&radic;
+                        </button>
+                        <button ng-click="mathBtnClick($event)" type="button" id="exponentiation-btn"
+                                class="btn btn-secondary mr-1">
+                            x<sup>y</sup>
+                        </button>
+                        <button ng-click="mathBtnClick($event)" type="button" id="less-than-btn"
+                                class="btn btn-secondary mr-1">&lt;
+                        </button>
+                        <button ng-click="mathBtnClick($event)" type="button" id="greater-than-btn"
+                                class="btn btn-secondary mr-1">&gt;
+                        </button>
+                        <button ng-click="mathBtnClick($event)" type="button" id="less-or-equal-than-btn"
+                                class="btn btn-secondary mr-1">
+                            &le;
+                        </button>
+                        <button ng-click="mathBtnClick($event)" type="button" id="greater-or-equal-than-btn"
+                                class="btn btn-secondary mr-1">
+                            &ge;
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 border rounded-right formula-row">
+                <label class="mt-3">Variables</label>
+                <autocomplete hint-list="unmapped_variables">
+                    <variable-form options="dataProperties" ng-model="variable"></variable-form>
+                </autocomplete>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 border rounded-left visualization-row">
+                <div id="visualization">
+                </div>
+            </div>
+            <div class="col-md-4 border rounded-right vizualization-row text-center">
+                <div class="mt-5">
+                    <button type="submit" class="btn btn-lg btn-success">Add</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

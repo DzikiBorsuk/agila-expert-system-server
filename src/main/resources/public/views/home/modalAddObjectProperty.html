@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <h4 class="modal-title">Add New Object Property</h4>
+</div>
+<form class="needs-validation" name="addObjectPropertyForm" autocomplete="off" role="form" ng-submit="addObjectProperty()" novalidate>
+    <div class="modal-body">
+        <div class="form-check">
+            <input type="radio" id="child" name="option" class="form-check-input class-name-radio" value="child"
+                   ng-model="model.option" ng-checked="true"/><label for="child">Add as child of {{referenceProperty.name}}</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" id="sibling" name="option" class="form-check-input class-name-radio" value="sibling"
+                   ng-model="model.option" ng-disabled="isThing" /><label for="sibling">Add as sibling of {{referenceProperty.name}}</label>
+        </div>
+        <div class="form-group">
+            <label for="add-property-name">Object Property Name</label>
+            <input class="form-control" name="name" disable-spaces id="add-property-name" placeholder="Name"
+                   ng-model="model.name"
+                   ng-required="true"
+                   ng-class="{'is-invalid' : addObjectPropertyForm.name.$invalid && addObjectPropertyForm.$submitted, 'is-valid' : addObjectPropertyForm.name.$valid && addObjectPropertyForm.$submitted}">
+            <div class="invalid-feedback">
+                Please enter a name.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="add-property-description">Select Class</label>
+            <select ng-model="selectedRange" ng-options="c.text for c in classes" ng-value="c.text" class="form-control">
+            </select>
+            <div class="invalid-feedback">
+                Please select a class
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="add-property-description">Object Property Description</label>
+            <textarea class="form-control" name="description" id="add-property-description" rows="4"
+                      style="resize: none" ng-model="model.description" ng-required="true"
+                      ng-class="{'is-invalid' : addObjectPropertyForm.name.$invalid && addObjectPropertyForm.$submitted, 'is-valid' : addObjectPropertyForm.name.$valid && addObjectPropertyForm.$submitted}"></textarea>
+            <div class="invalid-feedback">
+                Please enter some description.
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" ng-click="modalDismiss()">Close</button>
+        <button type="submit" class="btn btn-success">Add
+        </button>
+    </div>
+</form>

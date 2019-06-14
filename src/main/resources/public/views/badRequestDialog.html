@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h4 ng-show="hasModelState" class="modal-title">{{model.message}}</h4>
+    <h4 ng-hide="hasModelState" class="modal-title">Validation Error</h4>
+</div>
+<div class="modal-body">
+    <div ng-show="hasModelState">
+        <p ng-repeat="(key, messages) in model.modelState">
+			<span ng-repeat="message in messages">
+				<br ng-hide="$first" />
+				{{message}}
+			</span>
+        </p>
+    </div>
+    <p ng-hide="hasModelState">{{model.message}}</p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="close()">Close</button>
+</div>

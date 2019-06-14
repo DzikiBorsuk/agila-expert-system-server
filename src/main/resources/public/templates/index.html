@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html ng-app="agila" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AgilA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link href="../plugins/bootstrap-tree-view/css/bootstrap-treeview.min.css" rel="stylesheet" type="text/css">
+    <link href="../plugins/blockUI/css/angular-block-ui.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="icon" type="image/png" href="../images/tukl_icon.png"/>
+
+    <base href="/">
+
+</head>
+<body class="bg-light" ng-controller="homeController">
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand mb-0 h1 	d-none d-sm-block" href="#"><img src="../images/agila_logo.png"/></a>
+    <a class="navbar-brand mb-0 h1 	d-block d-sm-none" href="#"><img src="../images/agila_logo.png"/></a>
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#mainNavbar"
+            aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" ui-sref="dashboard">Home</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" ui-sref="constraintsList">Constraints</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" ui-sref="rulesList">Rules</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" ui-sref="individualsList">Cars</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown user-info">
+                <a class="nav-link dropdown-toggle"  id="dropdown04" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">{{user.firstName + " " + user.lastName}}</a>
+                <div class="dropdown-menu dropdown-menu-right rounded-0 shadow-sm" aria-labelledby="dropdown04">
+                    <a class="dropdown-item" ui-sref="settings">Settings</a>
+                    <a id="logout-btn" class="dropdown-item" href="#">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<nav class="navbar-custom bg-dark">
+    <ul class="navbar-custom-menu md-autohide">
+        <li id="side-menu">
+            <a id="class-hierarchy-btn" href="" data-toggle="tooltip" data-placement="right"
+               title="Class hierarchy" class="movable"><span class="fa fa-sitemap"></span></a>
+            <a id="object-properties-btn" href="" data-toggle="tooltip" data-placement="right"
+               title="Object properties" class="movable"><span class="fa fa-list-alt"></span></a>
+            <a id="data-properties-btn" href="" data-toggle="tooltip" data-placement="right"
+               title="Data properties" class="movable"><span class="fa fa-calculator"></span></a>
+            <a id="individuals-btn" href="" data-toggle="tooltip" data-placement="right"
+               title="Cars" class="movable"><span class="fa fa-car"></span></a>
+        </li>
+    </ul>
+</nav>
+
+<div id="side-navbar">
+    <div id="class-hierarchy" class="bg-light navbar-custom-collapsable transition-300ms">
+        <div class="container-fluid">
+            <div>
+                <h4 class="bg-light mt-2">Class Hierarchy</h4>
+                <div id="class-hierarchy-tree" class="mx-auto loader ontology-tree"></div>
+            </div>
+        </div>
+    </div>
+    <div id="object-properties" class="bg-light navbar-custom-collapsable transition-300ms">
+        <div class="container-fluid">
+            <div>
+                <h4 class="bg-light mt-2">Object Properties</h4>
+                <div id="object-properties-tree" class="mx-auto loader ontology-tree"></div>
+            </div>
+        </div>
+    </div>
+    <div id="data-properties" class="bg-light navbar-custom-collapsable transition-300ms">
+        <div class="container-fluid">
+            <div>
+                <h4 class="bg-light mt-2">Data Properties</h4>
+                <div id="data-properties-tree" class="mx-auto loader ontology-tree"></div>
+            </div>
+        </div>
+    </div>
+    <div id="individuals" class="bg-light navbar-custom-collapsable transition-300ms">
+        <div class="container-fluid">
+            <div>
+                <h4 class="bg-light mt-2">Cars</h4>
+                <div id="individuals-tree" class="mx-auto loader ontology-tree"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="main" class="main-content transition-300ms bg-light">
+
+    <div>
+        <ui-view></ui-view>
+    </div>
+
+</div>
+
+<div class="modal fade" id="modal-main" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"
+        integrity="sha256-zBy1l2WBAh2vPF8rnjFMUXujsfkKjya0Jy5j6yKj0+Q="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.min.js"
+        integrity="sha256-E6XubcgT4a601977ZZP4Yw/0UCB2/Ex+Bazst+JRw1U="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.18/angular-ui-router.min.js"
+        integrity="sha256-e24exXKZfsXoS0iJELk9B+rTDAJ1V5/AgeMtEesDNsk="
+        crossorigin="anonymous"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+<script src="../plugins/bootstrap-tree-view/js/bootstrap-treeview.min.js"></script>
+
+<script src="../js/sharedModule.js"></script>
+<script src="../js/mainModule.js"></script>
+<script src="../js/helpers/directives.js"></script>
+<script src="../js/controllers/homeController.js"></script>
+<script src="../js/controllers/dashboardController.js"></script>
+<script src="../js/controllers/constraintsListController.js"></script>
+<script src="../js/controllers/constraintsAddController.js"></script>
+<script src="../js/controllers/individualsAddController.js"></script>
+<script src="../js/controllers/individualsListController.js"></script>
+<script src="../js/controllers/rulesListController.js"></script>
+<script src="../js/controllers/messageDialogController.js"></script>
+<script src="../js/controllers/badRequestDialogController.js"></script>
+<script src="../js/controllers/addClassController.js"></script>
+<script src="../js/controllers/addObjectPropertyController.js"></script>
+<script src="../js/controllers/addDataPropertyController.js"></script>
+<script src="../js/controllers/individualDetailsController.js"></script>
+<script src="../js/controllers/settingsController.js"></script>
+<script src="../js/controllers/rulesAddController.js"></script>
+<script src="../js/helpers/TexParser.js"></script>
+<script src="../plugins/blockUI/js/angular-block-ui.min.js"></script>
+<script src="../plugins/ui-bootstrap/js/ui-bootstrap-tpls-3.0.4.min.js"></script>
+<script src="../plugins/angular-bind-html-compile/angular-bind-html-compile.js"></script>
+<script src="../plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip(
+            {
+                trigger: 'hover'
+            }
+        );
+    });
+</script>
+</body>
+</html>
